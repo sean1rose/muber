@@ -7,4 +7,7 @@ module.exports = (app) => {
     // route handles request via use of a controller
   app.get('/api', DriversController.greeting);
 
+  // route for creating drivers...
+  app.post('/api/drivers', DriversController.create);
+
 };
