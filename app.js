@@ -8,7 +8,14 @@ const app = express();
 
 // connect mongoose to mongodb
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/muber');
+
+// using 2 separate dbs
+if (process.env.NODE_ENV !== 'test'){
+  // if not in test env (in dev env, prod) -> connect to muber db 
+  mongoose.connect('mongodb://localhost/muber');
+}
+// if running test env -> don't touch it, but add to (insde of test helper, always connect to "muber_test" db)
+// don't need else statement for test db cuz test_helper handles it 
 
 // wire up body parser middleware
   // any incoming request -> assume it's json and parse it into an obj

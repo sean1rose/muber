@@ -13,7 +13,8 @@ module.exports = {
     
     // if (!req.body) return res.sendStatus(400);
     
-    Driver.create(driverProps).then(driver => res.send(driver));
+    Driver.create(driverProps)
+      .then(driver => res.send(driver));
     
   }
   
