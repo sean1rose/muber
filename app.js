@@ -17,12 +17,21 @@ if (process.env.NODE_ENV !== 'test'){
 // if running test env -> don't touch it, but add to (insde of test helper, always connect to "muber_test" db)
 // don't need else statement for test db cuz test_helper handles it 
 
-// wire up body parser middleware
+// wire up body parser MIDDLEWARE
   // any incoming request -> assume it's json and parse it into an obj
 app.use(bodyParser.json());
-// make sure middleware comes BEFORE 'routes' is called
+// make sure MIDDLEWARE comes BEFORE 'routes' is called
 
-// request (route) handlers:
+
+// set up request (route) handlers:
 routes(app);
+
+
+// want error handling MIDDLEWARE executed after route hanlders
+app.use((err, req, res, next) => {
+  // 422 for validation error...
+  res.status(422).send({error: err.message});
+});
+
 
 module.exports = app;

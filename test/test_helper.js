@@ -16,4 +16,4 @@ beforeEach(done => {
   drivers.drop()
     .then(() => done())
     .catch(() => done());
-})
+});
