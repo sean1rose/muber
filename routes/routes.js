@@ -10,4 +10,9 @@ module.exports = (app) => {
   // route for creating drivers...
   app.post('/api/drivers', DriversController.create);
 
+  // in the controller, can find id by using 'req.params.id';
+  app.put('/api/drivers/:id', DriversController.edit);
+
+  app.delete('/api/drivers/:id', DriversController.delete);
+
 };

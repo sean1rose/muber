@@ -18,6 +18,27 @@ module.exports = {
       .then(driver => res.send(driver))
       .catch(next);
     
+  },
+
+  // add route to route file, then add controller function...
+  edit(req, res, next) {
+    // use :id to access driver trying to search for
+    const driverId = req.params.id;
+    const driverProperties = req.body;
+    Driver.findByIdAndUpdate({ _id: driverId}, driverProperties)
+      .then(() => Driver.findById({ _id: driverId }))
+      .then(driver => res.send(driver))
+      .catch(next);
+
+    // .then doesn't return the driver obj that was updated, but rather an object w/ statistics of what was updated...
+  },
+
+  delete(req, res, next) {
+    const driverId = req.params.id;
+    // const driverProps = req.body;
+    Driver.findByIdAndRemove({ _id: driverId})
+      .then(driver => res.status(204).send(driver))
+      .catch(next);
   }
   
 };
