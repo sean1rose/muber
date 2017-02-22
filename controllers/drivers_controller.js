@@ -18,10 +18,13 @@ module.exports = {
       // query string -> 'http://google.com?lng-80&lat=20'
     const { lng, lat } = req.query;
 
+    // get driver that's near a point w/ lat/lng, using sphere, max distance 2000 km
     Driver.geoNear(
       { type: 'Point', coordinates: [lng, lat] },
       { spherical: true, maxDistance: 200000 }
     )
+      .then(drivers => res.send(drivers))
+      .catch(next);
     
   },
 
