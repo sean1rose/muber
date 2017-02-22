@@ -15,4 +15,7 @@ module.exports = (app) => {
 
   app.delete('/api/drivers/:id', DriversController.delete);
 
+  // get list of drivers
+  app.get('/api/drivers', DriversController.index);
+
 };

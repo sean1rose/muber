@@ -6,6 +6,26 @@ module.exports = {
     res.send({ hi: 'there' });
   },
 
+  // for get request
+  index(req, res, next) {
+    /* http://mongoosejs.com/docs/api.html#model_Model.geoNear
+      Model.geoNear(GeoJSON, options, [callback])
+        GeoJSON <Object, Array> point or legacy coordinate pair [x,y] to search near
+        options <Object> for the query
+        [callback] <Function> optional callback for the query
+    */
+    // request obj will contain the lat/lon of the user (not req.body, cuz it's a get request)
+      // query string -> 'http://google.com?lng-80&lat=20'
+    const { lng, lat } = req.query;
+
+    Driver.geoNear(
+      { type: 'Point', coordinates: [lng, lat] },
+      { spherical: true, maxDistance: 200000 }
+    )
+    
+  },
+
+  // for post
   create(req, res, next) {
     console.log('req.body - ', req.body);
     // // create driver in database

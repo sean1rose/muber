@@ -1,8 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// create schema + create model
+// embedded sub-document, used inside of the DriverSchema
+const PointSchema = new Schema({
+  type: {
+    type: String,
+    default: 'Point'
+  },
+  coordinates: {
+    type: [Number],
+    index: '2dsphere'
+  }
+})
 
+
+// create schema + create model
 const DriverSchema = new Schema({
   email: {
     type: String,
@@ -11,7 +23,8 @@ const DriverSchema = new Schema({
   driving: {
     type: Boolean,
     default: false
-  }
+  },
+  geometry: PointSchema
 });
 
 // make driver model, passing DriverSchema
