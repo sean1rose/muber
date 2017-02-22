@@ -16,11 +16,12 @@ module.exports = {
     */
     // request obj will contain the lat/lon of the user (not req.body, cuz it's a get request)
       // query string -> 'http://google.com?lng-80&lat=20'
+      // these aren't #s -> they're strings, so parseFloat it
     const { lng, lat } = req.query;
 
     // get driver that's near a point w/ lat/lng, using sphere, max distance 2000 km
     Driver.geoNear(
-      { type: 'Point', coordinates: [lng, lat] },
+      { type: 'Point', coordinates: [parseFloat(lng), parseFloat(lat)] },
       { spherical: true, maxDistance: 200000 }
     )
       .then(drivers => res.send(drivers))
